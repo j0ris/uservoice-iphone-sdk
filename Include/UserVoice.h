@@ -35,4 +35,8 @@
 
 + (void)showUserVoice:(UIViewController *)rootViewController forController:(UIViewController *)viewController;
 
++ (UINavigationController *)userVoiceNavigationControllerForSite:(NSString *)site
+														  andKey:(NSString *)key
+													   andSecret:(NSString *)secret;
+
 @end

@@ -83,4 +83,24 @@
 	[viewController presentModalViewController:userVoiceNav animated:YES];
 }
 
++ (UINavigationController *)userVoiceNavigationControllerForSite:(NSString *)site
+														  andKey:(NSString *)key
+													   andSecret:(NSString *)secret {
+	[UVSession currentSession].config = [[UVConfig alloc] initWithSite:site andKey:key andSecret:secret];
+ 	
+	UIViewController *rootViewController;
+	if ([[UVSession currentSession] clientConfig])
+	{
+		rootViewController = [[[UVWelcomeViewController alloc] init] autorelease];
+	}
+	else
+	{
+		rootViewController = [[[UVRootViewController alloc] init] autorelease];
+	}
+		
+	[UVSession currentSession].isModal = NO;
+	UINavigationController *userVoiceNavigationController = [[[UINavigationController alloc] initWithRootViewController:rootViewController] autorelease];
+	return userVoiceNavigationController;
+}
+
 @end
