@@ -19,11 +19,15 @@
 	if (self = [super init]) {
 		CGRect frame = [UIApplication sharedApplication].keyWindow.bounds;
 		self.frame = frame;
-		UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-		backgroundView.backgroundColor = [UIColor blackColor];
-		backgroundView.alpha = 0.4;
-		[self addSubview:backgroundView];
-		[backgroundView release];
+
+		if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+			// I am not sure we want the whole screen of the iPad to be blocked (?)
+			UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+			backgroundView.backgroundColor = [UIColor blackColor];
+			backgroundView.alpha = 0.4;
+			[self addSubview:backgroundView];
+			[backgroundView release];
+		}
 		
 		UIView *activityFrame = [[UIView alloc] initWithFrame:CGRectMake((frame.size.width - 120) / 2, 100, 120, 120)];
 		activityFrame.backgroundColor = [UIColor blackColor];
@@ -44,6 +48,13 @@
 		activityLabel.textAlignment = UITextAlignmentCenter;
 		[activityFrame addSubview:activityLabel];
 		[activityLabel release];
+		
+		UIInterfaceOrientation statusBarOrientation = [UIApplication sharedApplication].statusBarOrientation;
+		if (statusBarOrientation == UIInterfaceOrientationLandscapeLeft) {
+			activityFrame.layer.transform = CATransform3DMakeRotation(-M_PI_2, 0, 0, 1);
+		} else if (statusBarOrientation == UIInterfaceOrientationLandscapeRight) {
+			activityFrame.layer.transform = CATransform3DMakeRotation(M_PI_2, 0, 0, 1);
+		}
 		
 		[self addSubview:activityFrame];
 		[activityFrame release];

@@ -32,9 +32,16 @@
 	if (navBarEnabled) {
 		barFrame = self.navigationController.navigationBar.frame;
 	}
-	CGRect appFrame = [UIScreen mainScreen].applicationFrame;
+	
+	CGSize contentSize;
+	if (self.parentViewController) {
+		contentSize = self.parentViewController.view.frame.size;
+	} else {
+		contentSize = [UIScreen mainScreen].applicationFrame.size;
+	}
+
 	CGFloat yStart = barFrame.origin.y + barFrame.size.height;
-	return CGRectMake(0, yStart, appFrame.size.width, appFrame.size.height - barFrame.size.height);
+	return CGRectMake(0, yStart, contentSize.width, contentSize.height - barFrame.size.height);
 }
 
 
