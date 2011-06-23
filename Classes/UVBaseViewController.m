@@ -34,8 +34,9 @@
 	}
 	
 	CGSize contentSize;
-	if (self.parentViewController) {
-		contentSize = self.parentViewController.view.frame.size;
+	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+		contentSize = CGSizeMake(320.0, 480.0);
+		barFrame = CGRectZero;
 	} else {
 		contentSize = [UIScreen mainScreen].applicationFrame.size;
 	}
@@ -221,6 +222,9 @@
 	self.activityIndicator = nil;
 }
 
+- (CGSize)contentSizeForViewInPopover {
+	return CGSizeMake(320.0, 480.0);
+}
 
 - (void)dealloc {
     [super dealloc];
