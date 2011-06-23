@@ -301,7 +301,10 @@
 - (BOOL)textEditorShouldBeginEditing:(UVTextEditor *)theTextEditor {
 	//NSLog(@"textEditorShouldBeginEditing");
 	UIView *headerView = (UIView *)self.tableView.tableHeaderView;	
-	NSInteger height = self.view.bounds.size.height - 216;
+	NSInteger height = self.view.bounds.size.height;
+	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+		height -= 216;
+	}
 	CGRect frame = CGRectMake(0, 10, 320, height);
 	UIView *textBar = [headerView viewWithTag:UV_SEARCH_TEXTBAR];
 	
