@@ -59,7 +59,7 @@
 - (NSString *)signableString
 {
 	NSMutableArray *signableObjects = [[NSMutableArray alloc] init];	
-	NSLog(@"signableString: %@, %@, %@", HTTPMethod, url, [self signableParameters]);
+	DLog(@"signableString: %@, %@, %@", HTTPMethod, url, [self signableParameters]);
 	
 	[signableObjects addObject:[HTTPMethod URLEncodedString]];
 	[signableObjects addObject:[[url absoluteString] URLEncodedString]];
@@ -152,7 +152,7 @@
 		}else if([aMethod isEqualToString:@"PLAINTEXT"]){
 			signatureMethod = [[YOAuthSignatureMethod_PLAINTEXT alloc] init];
 		}else{
-			NSLog(@"Signature Method: \"%@\" not supported.", aMethod);
+			DLog(@"Signature Method: \"%@\" not supported.", aMethod);
 		}
 	}
 	return self;

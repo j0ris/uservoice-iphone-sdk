@@ -47,9 +47,9 @@
 }
 
 - (void)pushSuggestionShowView:(UVButtonWithIndex *)button {
-	//NSLog(@"Suggestion selected: %d", button.index);
+	//DLog(@"Suggestion selected: %d", button.index);
 	UVSuggestion *suggestion = [suggestions objectAtIndex:button.index];
-	//NSLog(@"Suggestion content: %@", suggestion);
+	//DLog(@"Suggestion content: %@", suggestion);
 	UVSuggestionDetailsViewController *next = [[UVSuggestionDetailsViewController alloc] init];
 	next.suggestion = suggestion;
 	
@@ -63,7 +63,7 @@
 	// getting the cell size
     CGRect contentRect = cell.contentView.bounds;
 	UVSuggestionButton *button = [[UVSuggestionButton alloc] initWithIndex:indexPath.row andFrame:contentRect];	
-	//NSLog(@"Init suggestion with index: %d", indexPath.row);
+	//DLog(@"Init suggestion with index: %d", indexPath.row);
 	
 	[button addTarget:self action:@selector(pushSuggestionShowView:) forControlEvents:UIControlEventTouchUpInside];	
 	button.tag = UV_BASE_SUGGESTION_LIST_TAG_CELL_BACKGROUND;
@@ -74,7 +74,7 @@
 }
 
 - (void)customizeCellForSuggestion:(UVBaseGroupedCell *)cell indexPath:(NSIndexPath *)indexPath {
-	//NSLog(@"Customize suggestion with index: %d", indexPath.row);
+	//DLog(@"Customize suggestion with index: %d", indexPath.row);
 	
 	UVSuggestion *suggestion = [[self suggestions] objectAtIndex:indexPath.row];
 	UVSuggestionButton *button = (UVSuggestionButton *)[cell.contentView viewWithTag:UV_BASE_SUGGESTION_LIST_TAG_CELL_BACKGROUND];
@@ -82,7 +82,7 @@
 }
 
 - (void)initCellForLoad:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
-	//NSLog(@"Load more index: %d", indexPath.row);
+	//DLog(@"Load more index: %d", indexPath.row);
 	
 	CGRect contentRect = cell.contentView.bounds;
 	UVButtonWithIndex *button = [[UVButtonWithIndex alloc] initWithIndex:indexPath.row andFrame:contentRect];	

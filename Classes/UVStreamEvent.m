@@ -22,10 +22,10 @@
 
 + (void)processModels:(NSArray *)models {
 	// Override in subclasses if necessary
-//	NSLog(@"Processing stream");
+//	DLog(@"Processing stream");
 //	
 //	for (int i=0; i<[models count]; i++) {
-//		NSLog(@"New event of type: %@", [[models objectAtIndex:i] type]);
+//		DLog(@"New event of type: %@", [[models objectAtIndex:i] type]);
 //	}
 }
 
@@ -53,7 +53,7 @@
 
 + (void)didReceiveError:(NSError *)error callback:(NSInvocation *)callback {
 	// do nothing
-	NSLog(@"Error polling: %@", error);
+	DLog(@"Error polling: %@", error);
 }
 
 - (id)initWithDictionary:(NSDictionary *)dict {

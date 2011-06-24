@@ -40,7 +40,7 @@
 @synthesize subject;
 
 - (void)createMessage {
-	//NSLog(@"Create message. Subject: %@, Text: %@", self.subject.text, self.text);
+	//DLog(@"Create message. Subject: %@, Text: %@", self.subject.text, self.text);
 	[self showActivityIndicator];
 	[UVMessage createWithSubject:self.subject text:self.text delegate:self];
 }
@@ -106,7 +106,7 @@
 	[self hideActivityIndicator];
 	
 	if ([error isNotFoundError]) {
-		NSLog(@"No user");
+		DLog(@"No user");
 		// shouldResizeForKeyboard = YES;
 		[self.tableView reloadData];
 		// shouldResizeForKeyboard = NO;
@@ -180,16 +180,16 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	// Scroll to the active text field
-	NSLog(@"textFieldDidBeginEditing");	
+	DLog(@"textFieldDidBeginEditing");	
 	NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:UV_NEW_MESSAGE_SECTION_PROFILE];
 	[self.tableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-	NSLog(@"textFieldShouldEndEditing");
+	DLog(@"textFieldShouldEndEditing");
 	
 	if (textField==emailField) {
-		NSLog(@"Check email");
+		DLog(@"Check email");
 		[self checkEmail];
 	}
 	return YES;
@@ -208,7 +208,7 @@
 }
 
 - (void)textEditorDidBeginEditing:(UVTextEditor *)theTextEditor {
-	NSLog(@"textEditorDidBeginEditing");
+	DLog(@"textEditorDidBeginEditing");
 	// Change right bar button to Done, as there's no built-in way to dismiss the
 	// text view's keyboard.
 	UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
@@ -225,7 +225,7 @@
 }
 
 - (BOOL)textEditorShouldEndEditing:(UVTextEditor *)theTextEditor {
-	NSLog(@"textEditorShouldEndEditing");
+	DLog(@"textEditorShouldEndEditing");
 	[self moveTextViewForKeyboard:NO];
 	
 	return YES;

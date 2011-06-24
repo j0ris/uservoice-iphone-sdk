@@ -11,7 +11,7 @@
 @implementation UVTaskBar
 
 - (void)drawRect:(CGRect)rect {
-	NSLog(@"Attempting to style UVTaskBar");
+	DLog(@"Attempting to style UVTaskBar");
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     CGContextSaveGState(currentContext);
     CGContextSetShadow(currentContext, CGSizeMake(1, -1), 2);

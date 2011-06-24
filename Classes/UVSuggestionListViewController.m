@@ -87,9 +87,9 @@
 - (void)didRetrieveSuggestions:(NSArray *)theSuggestions {
 	[self hideActivityIndicator];
 	if ([theSuggestions count] > 0) {
-		//NSLog(@"Retrieved Suggestions: %@", theSuggestions);
+		//DLog(@"Retrieved Suggestions: %@", theSuggestions);
 		[self.suggestions addObjectsFromArray:theSuggestions];
-		//NSLog(@"Stored Suggestions: %@", self.suggestions);
+		//DLog(@"Stored Suggestions: %@", self.suggestions);
 	}
 
 	[[UVSession currentSession].clientConfig.forum.currentTopic.suggestions addObjectsFromArray:theSuggestions];
@@ -202,7 +202,7 @@
 	BOOL selectable = NO;
 	UITableViewCellStyle style = UITableViewCellStyleDefault;
 	NSInteger suggestionsCount = [UVSession currentSession].clientConfig.forum.currentTopic.suggestionsCount;
-	//NSLog(@"%d, %d, %d", indexPath.row, [self.suggestions count], suggestionsCount);
+	//DLog(@"%d, %d, %d", indexPath.row, [self.suggestions count], suggestionsCount);
 	
 	if (indexPath.row < [self.suggestions count]) {
 		identifier = @"Suggestion";
@@ -226,7 +226,7 @@
 	NSInteger suggestionsCount = [UVSession currentSession].clientConfig.forum.currentTopic.suggestionsCount;
 	
 	if (_searching) {
-		NSLog(@"Adding extra row for 'add'");
+		DLog(@"Adding extra row for 'add'");
 		// One cell per suggestion + one for "add"
 		rows = loadedCount + 1;
 		
@@ -299,7 +299,7 @@
 }
 
 - (BOOL)textEditorShouldBeginEditing:(UVTextEditor *)theTextEditor {
-	//NSLog(@"textEditorShouldBeginEditing");
+	//DLog(@"textEditorShouldBeginEditing");
 	UIView *headerView = (UIView *)self.tableView.tableHeaderView;	
 	NSInteger height = self.view.bounds.size.height;
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
@@ -310,7 +310,7 @@
 	
 	// Maximize header view to allow text editor to grow (leaving room for keyboard) 216
 	[UIView beginAnimations:@"growHeader" context:nil];
-	//NSLog(@"setLeftBarButtonCancel");
+	//DLog(@"setLeftBarButtonCancel");
 	[self setLeftBarButtonCancel];	
 	[self setCellsEnabled:NO];
 	
@@ -325,7 +325,7 @@
 }
 
 - (BOOL)textEditorShouldReturn:(UVTextEditor *)theTextEditor {
-	NSLog(@"Check for: %@", self.textEditor.text);
+	DLog(@"Check for: %@", self.textEditor.text);
 	[self showActivityIndicator];
 	[self.textEditor resignFirstResponder];
 	_searching = YES;
@@ -338,11 +338,11 @@
 }
 
 - (void)textEditorDidEndEditing:(UVTextEditor *)theTextEditor {	
-	//NSLog(@"textEditorDidEndEditing");
+	//DLog(@"textEditorDidEndEditing");
 	
 	// reset nav
 	if (_textEditor.text) {
-		//NSLog(@"setLeftBarButtonClear");		
+		//DLog(@"setLeftBarButtonClear");		
 		[self setLeftBarButtonClear];		
 	}
 	
@@ -436,7 +436,7 @@
 }
 
 - (void)reloadTableData {
-	NSLog(@"UVSuggestionListViewController: reloadTableData");
+	DLog(@"UVSuggestionListViewController: reloadTableData");
 	self.suggestions = [UVSession currentSession].clientConfig.forum.currentTopic.suggestions;
 	
 	[self.tableView reloadData];
@@ -459,7 +459,7 @@
 	}
 	[self.tableView reloadData];
 	
-	NSLog(@"Adding observer");
+	DLog(@"Adding observer");
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(reloadTableData) 
 												 name:@"TopicSuggestionsUpdated"
@@ -468,7 +468,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	NSLog(@"Removing observer");
+	DLog(@"Removing observer");
 	[[NSNotificationCenter defaultCenter] removeObserver:self 
 													name:@"TopicSuggestionsUpdated" 
 												  object:nil];

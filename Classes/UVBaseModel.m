@@ -78,8 +78,8 @@
 	// (see headersForPath above) and pass the params in the "body" param.
 	NSString *paramsKey = [@"GET" isEqualToString:method] ? @"params" : @"body";
 	NSDictionary *opts = [NSDictionary dictionaryWithObjectsAndKeys:params, paramsKey, headers, @"headers", nil];
-	NSLog(@"HTTP Path: %@", path);
-	NSLog(@"HTTP Options: %@", opts);
+	DLog(@"HTTP Path: %@", path);
+	DLog(@"HTTP Options: %@", opts);
 	return opts;
 }
 
@@ -119,7 +119,7 @@
 }
 
 + (void)didReturnModel:(id)model callback:(NSInvocation *)callback {
-	//NSLog(@"[UVBaseModel didReturnModel:object] = %@", model);
+	//DLog(@"[UVBaseModel didReturnModel:object] = %@", model);
 
 	[self processModel:model];
 	
@@ -131,7 +131,7 @@
 }
 
 + (void)didReturnModels:(NSArray *)models callback:(NSInvocation *)callback {
-	//NSLog(@"[UVBaseModel didReturnModels:object] = %@", models);
+	//DLog(@"[UVBaseModel didReturnModels:object] = %@", models);
 
 	[self processModels:models];
 	
@@ -143,7 +143,7 @@
 }
 
 + (void)didReceiveError:(NSError *)error callback:(NSInvocation *)callback {
-	NSLog(@"[UVBaseModel didReceiveError]: %@", error);
+	DLog(@"[UVBaseModel didReceiveError]: %@", error);
 	[callback.target performSelector:@selector(didReceiveError:) withObject:error];
 }
 

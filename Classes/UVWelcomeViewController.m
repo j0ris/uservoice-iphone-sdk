@@ -72,7 +72,7 @@
 		NSString *url = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",
 						 [UVSession currentSession].clientConfig.itunesApplicationId];
 		
-		NSLog(@"Attempting to open iTunes page: %@", url);
+		DLog(@"Attempting to open iTunes page: %@", url);
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 	}
 }
@@ -424,7 +424,7 @@
 	
 	_forum = [UVSession currentSession].clientConfig.forum;		
 	if ([self needsReload]) {
-		NSLog(@"WelcomeView needs reload");
+		DLog(@"WelcomeView needs reload");
 		
 		UISegmentedControl *segments = 
 			(UISegmentedControl *)[_tableView viewWithTag:UV_FORUM_LIST_TAG_CELL_QUESTION_SEGMENTS];

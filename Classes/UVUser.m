@@ -48,9 +48,9 @@
 
 + (id)getWithUserId:(NSInteger)userId delegate:(id)delegate {
 	NSString *key = [NSString stringWithFormat:@"%d", userId];
-	NSLog(@"Checking cache for user with id: %@", key);
+	DLog(@"Checking cache for user with id: %@", key);
 	id cachedUser = [[UVSession currentSession].userCache objectForKey:key];
-	NSLog(@"Cache returned: %@", cachedUser);
+	DLog(@"Cache returned: %@", cachedUser);
 	
 	if (cachedUser && ![[NSNull null] isEqual:cachedUser]) {
 		// gonna fake the call and pass the cached user back to the selector
@@ -148,7 +148,7 @@
 	NSString *key = [NSString stringWithFormat:@"%d", user.userId];
 	
 	if ([[UVSession currentSession].userCache objectForKey:key]==nil) {
-		NSLog(@"Adding user to cache [%@]: %@", key, model);
+		DLog(@"Adding user to cache [%@]: %@", key, model);
 		[[UVSession currentSession].userCache setObject:model forKey:key];
 	}
 }

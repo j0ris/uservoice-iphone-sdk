@@ -152,7 +152,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	NSLog(@"View will appear (RootView)");
+	DLog(@"View will appear (RootView)");
 	[super viewWillAppear:animated];
 	
 	if (![UVNetworkUtils hasInternetAccess]) {
@@ -164,25 +164,25 @@
 		
 	} else if (![UVToken exists]) {
 		// no access token
-		NSLog(@"No access token");
+		DLog(@"No access token");
 		[UVToken getRequestTokenWithDelegate:self];
 		
 	} else if (![[UVSession currentSession] clientConfig]) {
 		// no client config
-		NSLog(@"No client");
+		DLog(@"No client");
 		[UVSession currentSession].currentToken = [[UVToken alloc]initWithExisting];
 		// get config and current user
 		[UVClientConfig getWithDelegate:self];
 		[UVUser retrieveCurrentUser:self];
 
 	} else if (![UVSession currentSession].user) {
-		NSLog(@"No user");
+		DLog(@"No user");
 		// just get user
 		[UVSession currentSession].currentToken = [[UVToken alloc]initWithExisting];
 		[UVUser retrieveCurrentUser:self];
 		
 	} else {
-		NSLog(@"Pushing welcome");
+		DLog(@"Pushing welcome");
 		// Re-enable the navigation bar
 		self.navigationController.navigationBarHidden = NO;
 

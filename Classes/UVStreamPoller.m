@@ -50,7 +50,7 @@ static UVStreamPoller* _instance;
 }
 
 - (void)pollServer:(NSTimer*)theTimer {
-	NSLog(@"Polling the UserVoice server");
+	DLog(@"Polling the UserVoice server");
 	if (!lastPollTime) {
 		self.lastPollTime = [UVSession currentSession].startTime;
 	}		
@@ -62,7 +62,7 @@ static UVStreamPoller* _instance;
 }
 
 - (void)didRetrievePublicStream:(NSArray *)theStream {
-	NSLog(@"Got public stream");
+	DLog(@"Got public stream");
 	
 	NSMutableDictionary *suggestionIds = [[[NSMutableDictionary alloc] initWithCapacity:10] autorelease];
 	for (int i=0; i<[[UVSession currentSession].clientConfig.forum.currentTopic.suggestions count]; i++) {
@@ -77,7 +77,7 @@ static UVStreamPoller* _instance;
 		UVStreamEvent *event = (UVStreamEvent *)[theStream objectAtIndex:i];				
 		
 		if ([event.type isEqualToString:@"suggestion"]) {
-			NSLog(@"New suggestion");
+			DLog(@"New suggestion");
 			// just invalidate the forum, can't order this anyway
 			[UVSession currentSession].clientConfig.forum.currentTopic.suggestionsNeedReload = YES;
 			
@@ -85,9 +85,9 @@ static UVStreamPoller* _instance;
 			NSDictionary *suggestionDict = [event.object valueForKey:@"suggestion"]; 
 			UVSuggestion *theSuggestion = [[[UVSuggestion alloc] initWithDictionary:suggestionDict] autorelease];
 			NSString *key = [NSString stringWithFormat:@"%d", theSuggestion.suggestionId];
-			NSLog(@"Looking for suggestionId: %@", key);
+			DLog(@"Looking for suggestionId: %@", key);
 			NSNumber *index = (NSNumber *)[suggestionIds objectForKey:key];			
-			NSLog(@"Existing index: %@", index);
+			DLog(@"Existing index: %@", index);
 		
 			if (index) {
 				[[UVSession currentSession].clientConfig.forum.currentTopic.suggestions replaceObjectAtIndex:[index intValue] 
@@ -95,13 +95,13 @@ static UVStreamPoller* _instance;
 				[[NSNotificationCenter defaultCenter] postNotificationName:@"TopicSuggestionsUpdated" object:self];
 			}
 			if ([event.type isEqualToString:@"vote"]) {
-				NSLog(@"New vote");				
+				DLog(@"New vote");				
 				
 			} else if ([event.type isEqualToString:@"comment"]) {
-				NSLog(@"New comment");
+				DLog(@"New comment");
 				
 			} else if ([event.type isEqualToString:@"suggestion_status"]) {
-				NSLog(@"New status");
+				DLog(@"New status");
 				
 			}
 		}
@@ -109,7 +109,7 @@ static UVStreamPoller* _instance;
 }
 
 - (void)didRetrievePrivateStream:(NSArray *)theStream {
-	NSLog(@"Got private stream");
+	DLog(@"Got private stream");
 }
 
 - (NSDictionary *)userInfo {
@@ -122,7 +122,7 @@ static UVStreamPoller* _instance;
 
 - (void)startTimer {	
 	if (self.repeatingTimer == nil) {
-		NSLog(@"Instantiating timer to start in 60 seconds");				
+		DLog(@"Instantiating timer to start in 60 seconds");				
 		
 		NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:60.0];
 		self.repeatingTimer = [[NSTimer alloc] initWithFireDate:fireDate

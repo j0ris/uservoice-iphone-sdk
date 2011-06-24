@@ -111,7 +111,7 @@
 
 - (void)didReceiveError:(NSError *)error {
 	[self hideActivityIndicator];
-	NSLog(@"SignIn Error");
+	DLog(@"SignIn Error");
 	if ([error isNotFoundError]) {
 		self.userType = UV_USER_NEW;				
 		[self hideActivityIndicator];
@@ -310,20 +310,20 @@
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-	NSLog(@"textFieldShouldEndEditing %@", textField.text);
+	DLog(@"textFieldShouldEndEditing %@", textField.text);
 	if (textField==emailField) {
-		NSLog(@"Check email");
+		DLog(@"Check email");
 		[self checkEmail];
 		
 	} else if (textField==passwordField) {
-		NSLog(@"Check password");
+		DLog(@"Check password");
 		[self checkPassword];
 	}
 	return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	NSLog(@"textFieldShouldReturn %@", textField.text);		
+	DLog(@"textFieldShouldReturn %@", textField.text);		
 
 	[textField resignFirstResponder];
 	return YES;

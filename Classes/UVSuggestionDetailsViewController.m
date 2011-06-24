@@ -61,14 +61,14 @@
 					suggestionIndex = index;					
 				index++;
 			}
-			NSLog(@"Removing sugggestion index %d from %d supported suggestions", suggestionIndex, 
+			DLog(@"Removing sugggestion index %d from %d supported suggestions", suggestionIndex, 
 				  [[UVSession currentSession].user.supportedSuggestions count]);
 			
 			[[UVSession currentSession].user.supportedSuggestions removeObjectAtIndex:suggestionIndex];
 			[UVSession currentSession].user.supportedSuggestionsCount -= 1;
 			
 		} else if (self.suggestion.votesFor == 0) {
-			NSLog(@"Adding new supported suggestion");
+			DLog(@"Adding new supported suggestion");
 			
 			// add if not there
 			[[UVSession currentSession].user.supportedSuggestions addObject:self.suggestion];
@@ -81,7 +81,7 @@
 }
 
 - (void)didVoteForSuggestion:(UVSuggestion *)theSuggestion {		
-	NSLog(@"Voted for suggestion: %@", theSuggestion);
+	DLog(@"Voted for suggestion: %@", theSuggestion);
 	
 	[UVSession currentSession].clientConfig.forum.currentTopic.votesRemaining = theSuggestion.votesRemaining;
 	[UVSession currentSession].clientConfig.forum.currentTopic.suggestionsNeedReload = YES;

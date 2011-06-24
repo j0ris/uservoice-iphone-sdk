@@ -24,20 +24,20 @@
 
 - (UVBaseModel *)modelForDictionary:(NSDictionary *)dict {
 	UVBaseModel *model = [[[self.modelClass alloc] initWithDictionary:dict] autorelease];
-	//NSLog(@"Unmarshaled model: %@", model);
+	//DLog(@"Unmarshaled model: %@", model);
 	return model;
 }
 
 #pragma mark - HRResponseDelegate Methods
 
 - (void)restConnection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response object:(id)object {
-	NSLog(@"DidReceiveResponse: %@", response);
+	DLog(@"DidReceiveResponse: %@", response);
 	//HttpRiot ignores the status code if a JSON body is present and sends didReturnResource"
 	statusCode = [response statusCode];
 }
 
 - (void)restConnection:(NSURLConnection *)connection didReturnResource:(id)resource object:(id)object {
-	//NSLog(@"didReturnResource: %@", resource);
+	//DLog(@"didReturnResource: %@", resource);
 
 	if (statusCode >= 400) {
 		NSDictionary *userInfo = nil;
@@ -58,7 +58,7 @@
 			NSArray *nodes = [mutableResource allKeys];						
 			if ([nodes count] > 1) {
 				// aggregate returned
-				NSLog(@"Aggregate %@", nodes);
+				DLog(@"Aggregate %@", nodes);
 				
 				// also check for any tokens returned and set a current on session
 				// we will not persist them here though leave that to the calling controller
@@ -88,14 +88,14 @@
 
 - (void)restConnection:(NSURLConnection *)connection didFailWithError:(NSError *)error object:(id)object {
 	// Handle connection errors.  Failures to connect to the server, etc.
-	NSLog(@"Error (HTTP connection failed): %@", error);
+	DLog(@"Error (HTTP connection failed): %@", error);
 	[modelClass didReceiveError:error callback:object];
 }
 
 - (void)restConnection:(NSURLConnection *)connection didReceiveParseError:(NSError *)error responseBody:(NSString *)string object:(id)object {
 	// Request was successful, but couldn't parse the data returned by the server. 
-	NSLog(@"Error parsing response: %@", error);
-	NSLog(@"Response Body: %@\n", string);
+	DLog(@"Error parsing response: %@", error);
+	DLog(@"Response Body: %@\n", string);
 	[modelClass didReceiveError:error callback:object];
 }
 

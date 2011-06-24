@@ -46,24 +46,24 @@
 }
 
 - (void)connection:(NSURLConnection *)conn didReceiveData:(NSData *)data {
-	//NSLog(@"Recieving data. Incoming Size: %i  Total Size: %i", [data length], [_payload length]);	
+	//DLog(@"Recieving data. Incoming Size: %i  Total Size: %i", [data length], [_payload length]);	
 	[_payload appendData:data];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)conn {
-	//NSLog(@"Connection returned: %i", [_payload length]);
+	//DLog(@"Connection returned: %i", [_payload length]);
 	UIImage *anImage = [UIImage imageWithData:_payload];
-	//NSLog(@"Image: %@", anImage);
+	//DLog(@"Image: %@", anImage);
 	
 	if (anImage) {
-		//NSLog(@"Calling image setter");
+		//DLog(@"Calling image setter");
 		self.image = anImage;
 		[self setNeedsDisplay];
 	}
     
 	[conn release];	
     _connection = nil;
-	//NSLog(@"Connection finished: %@", conn);
+	//DLog(@"Connection finished: %@", conn);
 }
 
 - (void)connection:(NSURLConnection *)conn didFailWithError:(NSError *)error {	
@@ -91,7 +91,7 @@
 
 - (void)setImage:(UIImage*)image {
 	if (image != _image) {
-		//NSLog(@"Setting image");
+		//DLog(@"Setting image");
 		[_image release];
 		_image = [image retain];
 	}
@@ -107,13 +107,13 @@
 		
 		if (_connection) {
 			_payload = [[NSMutableData data] retain];
-			//NSLog(@"Connection starting: %@", _connection);
+			//DLog(@"Connection starting: %@", _connection);
 			
 			if (_defaultImage && self.image != _defaultImage) {
 				self.image = _defaultImage;
 			}
 		} else {
-			NSLog(@"Unable to start download.");
+			DLog(@"Unable to start download.");
 		}
 	}
 }
